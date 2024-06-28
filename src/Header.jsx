@@ -3,12 +3,10 @@ import {useEffect, useState, useContext} from "react";
 import {UserContext} from "./UserContext";
 import inLightOfEternityLogo from './assets/inlightofeternitylogo.png';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function Header() {
 	const {setUserInfo,userInfo} = useContext(UserContext);
 	useEffect(() => {
-		fetch(`${BASE_URL}/profile`, {
+		fetch('/profile', {
 			credentials: 'include',
 		}).then(response => {
 			response.json().then(userInfo => {
@@ -18,6 +16,7 @@ export default function Header() {
 	}, []);
 
         function logout() {
+		fetch('/logout', {
 		fetch(`${BASE_URL}/logout`, {
 			credentials: 'include',
 			method: 'POST',

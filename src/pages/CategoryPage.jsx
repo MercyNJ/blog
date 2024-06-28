@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import CategorySubheader from '../CategorySubheader';
 import Post from '../Post';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function CategoryPage() {
   const { category } = useParams();
   const [posts, setPosts] = useState([]);
@@ -15,7 +13,7 @@ export default function CategoryPage() {
 
   const fetchPosts = async (category) => {
     try {
-      const response = await fetch(`${BASE_URL}/category/${category}`);
+      const response = await fetch(`/category/${category}`);
       const data = await response.json();
       setPosts(data);
     } catch (error) {

@@ -1,7 +1,5 @@
 import {useState} from "react";
 
-/*const BASE_URL = process.env.REACT_APP_BASE_URL;*/
-
 export default function RegisterPage() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');

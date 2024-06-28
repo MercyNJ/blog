@@ -4,8 +4,6 @@ import {useState} from "react";
 import {Navigate} from "react-router-dom";
 import Editor from "../Editor";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function CreatePost() {
   const [title,setTitle] = useState('');
   const [summary,setSummary] = useState('');
@@ -22,7 +20,7 @@ export default function CreatePost() {
     data.set('category', category);
     data.set('file', files[0]);
     ev.preventDefault();
-    const response = await fetch(`${BASE_URL}/post`, {
+    const response = await fetch('/post', {
       method: 'POST',
       body: data,
       credentials: 'include',

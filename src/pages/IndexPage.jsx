@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import myimg from '../assets/picS.png';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(`${BASE_URL}/post`).then(response => {
+    fetch('/post').then(response => {
       response.json().then(posts => {
         setPosts(posts);
       });

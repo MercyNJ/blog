@@ -3,8 +3,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { formatISO9075 } from "date-fns";
 import { UserContext } from "../UserContext";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
   const [comments, setComments] = useState([]);
@@ -22,9 +20,9 @@ export default function PostPage() {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/post/${id}`);
+      const response = await fetch(`/post/${id}`);
       const data = await response.json();
-      console.log("Fetched Post Info: ", data); // Debugging output for postInfo
+      console.log("Fetched Post Info: ", data);
       setPostInfo(data);
     } catch (error) {
       console.error('Error fetching post:', error);
@@ -33,7 +31,7 @@ export default function PostPage() {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/comments/${id}`);
+      const response = await fetch(`/comments/${id}`);
       const data = await response.json();
       setComments(data);
     } catch (error) {
@@ -43,7 +41,7 @@ export default function PostPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/post/${id}`, {
+      const response = await fetch(`/post/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -60,7 +58,7 @@ export default function PostPage() {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await fetch(`${BASE_URL}/comment/${commentId}`, {
+      const response = await fetch(`/comment/${commentId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -77,7 +75,7 @@ export default function PostPage() {
 
   const handleCommentSubmit = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/comment`, {
+      const response = await fetch('/comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +102,7 @@ export default function PostPage() {
 
   const handleEditComment = async (comment) => {
     try {
-      const response = await fetch(`${BASE_URL}/comment/${comment.id}`, {
+      const response = await fetch(`/comment/${comment.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +137,7 @@ export default function PostPage() {
             </div>
           )}
           <div className="image">
-	    <img src={`${BASE_URL}/${postInfo.cover}`} alt="" style={{ borderRadius: '15px' }} />
+	    <img src={`/${postInfo.cover}`} alt="" style={{ borderRadius: '15px' }} />
           </div>
           <div className="post-content" dangerouslySetInnerHTML={{__html: postInfo.content}} />
         </>

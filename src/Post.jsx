@@ -1,14 +1,12 @@
 import {formatISO9075} from "date-fns";
 import {Link} from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function Post({id, title, summary, resizedCover, content, createdAt, author}) {
     return (
         <div className="post">
             <div className="image">
                 <Link to={`/post/${id}`}>
-                    <img src={`${BASE_URL}/${resizedCover}`} alt="" style={{ borderRadius: '10px' }} />
+                    <img src={`/${resizedCover}`} alt="" style={{ borderRadius: '10px' }} />
                 </Link>
             </div>
             <div className="texts">
