@@ -1,0 +1,52 @@
+import {Link} from "react-router-dom";
+import {useEffect, useState, useContext} from "react";
+import {UserContext} from "./UserContext";
+import inLightOfEternityLogo from './assets/inlightofeternitylogo.png';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+export default function Header() {
+	const {setUserInfo,userInfo} = useContext(UserContext);
+	useEffect(() => {
+		fetch(`${BASE_URL}/profile`, {
+			credentials: 'include',
+		}).then(response => {
+			response.json().then(userInfo => {
+				setUserInfo(userInfo);
+			});
+		});
+	}, []);
+
+        function logout() {
+		fetch(`${BASE_URL}/logout`, {
+			credentials: 'include',
+			method: 'POST',
+		});
+		setUserInfo(null)
+	}
+
+	const username = userInfo?.username;
+
+  return (
+    <header>
+      <Link to="/" className="logo">
+          <img src={inLightOfEternityLogo} alt="In Light of Eternity Logo" className="imglogo" />
+	  <span className="logo-text">IN LIGHT OF ETERNITY</span>
+      </Link>
+      <nav className="nav-links">
+	  {username && (
+		  <>
+		    <Link to="/create">CREATE A NEW POST</Link>
+		    <a onClick={logout}>LOGOUT ({username})</a>
+		  </>
+	  )}
+	  {!username && (
+		  <>
+		    <Link to="/login">LOGIN</Link>
+		    <Link to="/register">REGISTER</Link>
+		  </>
+	  )}
+      </nav>
+    </header>
+  );
+}
