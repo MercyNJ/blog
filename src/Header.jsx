@@ -17,7 +17,6 @@ export default function Header() {
 
         function logout() {
 		fetch('/logout', {
-		fetch(`${BASE_URL}/logout`, {
 			credentials: 'include',
 			method: 'POST',
 		});
