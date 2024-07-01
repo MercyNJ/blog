@@ -6,19 +6,14 @@ export default function CategoryPage() {
   const { category } = useParams();
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(`/category/${category}`);
-        const data = await response.json();
-        setPosts(data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
+   useEffect(() => {
+    fetch(`/category/${category}`).then(response => {
+      response.json().then(posts => {
+        setPosts(posts);
+      });
+    });
+  }, []);
 
-    fetchPosts();
-  }, [category]);
 
   return (
     <main>
