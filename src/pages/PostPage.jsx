@@ -41,15 +41,21 @@ export default function PostPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/post/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
+      const isConfirmed = window.confirm('Are you sure you want to delete this post?');
 
-      if (response.ok) {
-        navigate('/');
+      if (isConfirmed) {
+        const response = await fetch(`/post/${id}`, {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          navigate('/');
+        } else {
+          console.error('Failed to delete the post');
+        }
       } else {
-        console.error('Failed to delete the post');
+        console.log('Deletion canceled by user');
       }
     } catch (error) {
       console.error('Error deleting the post:', error);
@@ -58,15 +64,21 @@ export default function PostPage() {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await fetch(`/comment/${commentId}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
+      const isConfirmed = window.confirm('Are you sure you want to delete this comment?');
 
-      if (response.ok) {
-        setComments(comments.filter(comment => comment.id !== commentId));
+      if (isConfirmed) {
+        const response = await fetch(`/comment/${commentId}`, {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          setComments(comments.filter(comment => comment.id !== commentId));
+        } else {
+          console.error('Failed to delete the comment');
+        }
       } else {
-        console.error('Failed to delete the comment');
+        console.log('Deletion canceled by user');
       }
     } catch (error) {
       console.error('Error deleting comment:', error);
