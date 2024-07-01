@@ -22,7 +22,6 @@ export default function PostPage() {
     try {
       const response = await fetch(`/post/${id}`);
       const data = await response.json();
-      console.log("Fetched Post Info: ", data);
       setPostInfo(data);
     } catch (error) {
       console.error('Error fetching post:', error);
