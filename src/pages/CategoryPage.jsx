@@ -12,17 +12,17 @@ export default function CategoryPage() {
         setPosts(posts);
       });
     });
-  }, []);
+  }, [category]);
 
   return (
-    <main>
+    <>
       <h1 className="category-heading">{category.replace('-', ' ')}</h1>
       <div className="category-posts">
         {posts.length > 0 && posts.map(post => (
           <Post key={post.id} {...post} />
         ))}
       </div>
-    </main>
+    </>
   );
 }
 
