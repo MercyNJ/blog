@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CategorySubheader from '../CategorySubheader';
 import Post from '../Post';
 
 export default function CategoryPage() {
@@ -8,18 +7,18 @@ export default function CategoryPage() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetchPosts(category);
-  }, [category]);
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`/category/${category}`);
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
 
-  const fetchPosts = async (category) => {
-    try {
-      const response = await fetch(`/category/${category}`);
-      const data = await response.json();
-      setPosts(data);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
+    fetchPosts();
+  }, [category]);
 
   return (
     <main>
